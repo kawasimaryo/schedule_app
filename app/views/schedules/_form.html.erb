@@ -1,0 +1,56 @@
+<%= form_with(model: schedule, local: true) do |form| %>
+  <% if schedule.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>入力に誤りがあります（<%= schedule.errors.count %>件）</h4>
+      <ul>
+        <% schedule.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title, "タイトル" %>
+    <%= form.text_field :title, class: "form-control" %>
+    <% if schedule.errors[:title].any? %>
+      <small class="text-danger"><%= schedule.errors[:title].join(", ") %></small>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :start_date, "開始日" %>
+    <%= form.text_field :start_date, class: "form-control datepicker" %>
+    <% if schedule.errors[:start_date].any? %>
+      <small class="text-danger"><%= schedule.errors[:start_date].join(", ") %></small>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :end_date, "終了日" %>
+    <%= form.text_field :end_date, class: "form-control datepicker" %>
+    <% if schedule.errors[:end_date].any? %>
+      <small class="text-danger"><%= schedule.errors[:end_date].join(", ") %></small>
+    <% end %>
+  </div>
+
+  <div class="form-group form-check">
+    <%= form.check_box :all_day, class: "form-check-input" %>
+    <%= form.label :all_day, "終日", class: "form-check-label" %>
+    <% if schedule.errors[:all_day].any? %>
+      <small class="text-danger"><%= schedule.errors[:all_day].join(", ") %></small>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :memo, "メモ" %>
+    <%= form.text_area :memo, rows: 3, class: "form-control" %>
+    <% if schedule.errors[:memo].any? %>
+      <small class="text-danger"><%= schedule.errors[:memo].join(", ") %></small>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit schedule.new_record? ? "登録する" : "更新する", class: "btn btn-primary" %>
+  </div>
+<% end %>
